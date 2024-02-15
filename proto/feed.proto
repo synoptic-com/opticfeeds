@@ -1,0 +1,55 @@
+// Definitions for scraper-facing API of the feed.
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/synoptic-com/opticfeeds/gofeedcontract";
+package synoptic.feed.feed;
+
+service FeedService {
+  // Subscribe to the feed.
+  rpc Subscribe (SubscriptionRequest) returns (stream FeedMessage);
+}
+
+service IngressService {
+  // Submits a single message to the ingress instance.
+  rpc SubmitFeedMessage (FeedMessage) returns (SubmitFeedMessageResponse);
+  // Submits a stream of messages to the feed ingress.
+  rpc SubmitFeedMessages (stream FeedMessage) returns (stream SubmitFeedMessageResponse);
+}
+
+// The request message sent by scraper to the feed ingress endpoint.
+message FeedMessage {
+  // Feed id. Usually, it is represented by source name and scraping purpose.
+  // Examples: "sec.etf_approve", "delaware.new_company", "delaware.new_etf_company", "btcnodes.etfmatch"
+  string feed_id = 1;
+
+  // Used to deduplicate the same message within the scraper. Provide random uuid if your scraper is unique values only.
+  // Examples: "blackrock_etf_approve", "1278637841", "2010-07-09T01:10:41:123121", "fcd07418-0804-4f8d-b664-058ef3637a8a"
+  string message_id = 2;
+
+  // Printable headline for the feed
+  // Examples: "Blackrock just got ETF approval on sec.gov", "Harmony bridge is hacked"
+  string headline = 3;
+
+  // The timestamp when the scraper observed the message. Note google.protobuf.Timestamp format.
+  google.protobuf.Timestamp timestamp_scraper = 4;
+
+  // If the scraper detects some particular event, provide its credibility 0-100. Optional.
+  optional int32 confidence = 5;
+
+  // JSON encoded string representing any data subscribers will have access to.
+  optional string data = 6;
+
+  // JSON encoded string representing any meta data subscribers will not have access to, but it will be stored.
+  optional string _meta = 7;
+}
+
+// The response message notifies scraper on successful processing of messages. Scrapers can ignore the response.
+message SubscriptionRequest {
+  string token = 1;
+}
+
+message SubmitFeedMessageResponse {
+}
