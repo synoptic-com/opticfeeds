@@ -1,4 +1,4 @@
-module github.com/synoptic-com/opticfeeds/gofeedcontract
+module github.com/synoptic-com/opticfeeds
 
 go 1.21.6
 
