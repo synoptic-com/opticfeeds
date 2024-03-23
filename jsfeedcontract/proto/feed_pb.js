@@ -121,13 +121,14 @@ proto.synoptic.feed.feed.FeedMessage.prototype.toObject = function(opt_includeIn
  */
 proto.synoptic.feed.feed.FeedMessage.toObject = function(includeInstance, msg) {
   var f, obj = {
-    feedId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    messageId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    headline: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    token: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    feedid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    messageid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    headline: jspb.Message.getFieldWithDefault(msg, 4, ""),
     timestampScraper: (f = msg.getTimestampScraper()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    confidence: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    data: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    meta: jspb.Message.getFieldWithDefault(msg, 7, "")
+    confidence: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    message: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    messagemeta: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -166,32 +167,36 @@ proto.synoptic.feed.feed.FeedMessage.deserializeBinaryFromReader = function(msg,
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setFeedId(value);
+      msg.setToken(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMessageId(value);
+      msg.setFeedid(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setHeadline(value);
+      msg.setMessageid(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setHeadline(value);
+      break;
+    case 5:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setTimestampScraper(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setConfidence(value);
       break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setData(value);
-      break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMeta(value);
+      msg.setMessage(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMessagemeta(value);
       break;
     default:
       reader.skipField();
@@ -222,45 +227,45 @@ proto.synoptic.feed.feed.FeedMessage.prototype.serializeBinary = function() {
  */
 proto.synoptic.feed.feed.FeedMessage.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getFeedId();
+  f = message.getToken();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getMessageId();
+  f = message.getFeedid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getHeadline();
+  f = message.getMessageid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
+  f = message.getHeadline();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTimestampScraper();
   if (f != null) {
     writer.writeMessage(
-      4,
+      5,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = /** @type {number} */ (jspb.Message.getField(message, 5));
+  f = /** @type {number} */ (jspb.Message.getField(message, 6));
   if (f != null) {
     writer.writeInt32(
-      5,
-      f
-    );
-  }
-  f = /** @type {string} */ (jspb.Message.getField(message, 6));
-  if (f != null) {
-    writer.writeString(
       6,
       f
     );
@@ -272,14 +277,21 @@ proto.synoptic.feed.feed.FeedMessage.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = /** @type {string} */ (jspb.Message.getField(message, 8));
+  if (f != null) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
 };
 
 
 /**
- * optional string feed_id = 1;
+ * optional string token = 1;
  * @return {string}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.getFeedId = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.getToken = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -288,16 +300,16 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getFeedId = function() {
  * @param {string} value
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.setFeedId = function(value) {
+proto.synoptic.feed.feed.FeedMessage.prototype.setToken = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string message_id = 2;
+ * optional string feedId = 2;
  * @return {string}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.getMessageId = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.getFeedid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -306,16 +318,16 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getMessageId = function() {
  * @param {string} value
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.setMessageId = function(value) {
+proto.synoptic.feed.feed.FeedMessage.prototype.setFeedid = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string headline = 3;
+ * optional string messageId = 3;
  * @return {string}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.getHeadline = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.getMessageid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -324,18 +336,36 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getHeadline = function() {
  * @param {string} value
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.setHeadline = function(value) {
+proto.synoptic.feed.feed.FeedMessage.prototype.setMessageid = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp timestamp_scraper = 4;
+ * optional string headline = 4;
+ * @return {string}
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.getHeadline = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.setHeadline = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp timestamp_scraper = 5;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.synoptic.feed.feed.FeedMessage.prototype.getTimestampScraper = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
 };
 
 
@@ -344,7 +374,7 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getTimestampScraper = function() 
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
 */
 proto.synoptic.feed.feed.FeedMessage.prototype.setTimestampScraper = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
+  return jspb.Message.setWrapperField(this, 5, value);
 };
 
 
@@ -362,16 +392,16 @@ proto.synoptic.feed.feed.FeedMessage.prototype.clearTimestampScraper = function(
  * @return {boolean}
  */
 proto.synoptic.feed.feed.FeedMessage.prototype.hasTimestampScraper = function() {
-  return jspb.Message.getField(this, 4) != null;
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
 /**
- * optional int32 confidence = 5;
+ * optional int32 confidence = 6;
  * @return {number}
  */
 proto.synoptic.feed.feed.FeedMessage.prototype.getConfidence = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
@@ -380,42 +410,6 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getConfidence = function() {
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
 proto.synoptic.feed.feed.FeedMessage.prototype.setConfidence = function(value) {
-  return jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * Clears the field making it undefined.
- * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
- */
-proto.synoptic.feed.feed.FeedMessage.prototype.clearConfidence = function() {
-  return jspb.Message.setField(this, 5, undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.synoptic.feed.feed.FeedMessage.prototype.hasConfidence = function() {
-  return jspb.Message.getField(this, 5) != null;
-};
-
-
-/**
- * optional string data = 6;
- * @return {string}
- */
-proto.synoptic.feed.feed.FeedMessage.prototype.getData = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
- */
-proto.synoptic.feed.feed.FeedMessage.prototype.setData = function(value) {
   return jspb.Message.setField(this, 6, value);
 };
 
@@ -424,7 +418,7 @@ proto.synoptic.feed.feed.FeedMessage.prototype.setData = function(value) {
  * Clears the field making it undefined.
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.clearData = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.clearConfidence = function() {
   return jspb.Message.setField(this, 6, undefined);
 };
 
@@ -433,16 +427,16 @@ proto.synoptic.feed.feed.FeedMessage.prototype.clearData = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.hasData = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.hasConfidence = function() {
   return jspb.Message.getField(this, 6) != null;
 };
 
 
 /**
- * optional string _meta = 7;
+ * optional string message = 7;
  * @return {string}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.getMeta = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
@@ -451,7 +445,7 @@ proto.synoptic.feed.feed.FeedMessage.prototype.getMeta = function() {
  * @param {string} value
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.setMeta = function(value) {
+proto.synoptic.feed.feed.FeedMessage.prototype.setMessage = function(value) {
   return jspb.Message.setField(this, 7, value);
 };
 
@@ -460,7 +454,7 @@ proto.synoptic.feed.feed.FeedMessage.prototype.setMeta = function(value) {
  * Clears the field making it undefined.
  * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.clearMeta = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.clearMessage = function() {
   return jspb.Message.setField(this, 7, undefined);
 };
 
@@ -469,8 +463,44 @@ proto.synoptic.feed.feed.FeedMessage.prototype.clearMeta = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.synoptic.feed.feed.FeedMessage.prototype.hasMeta = function() {
+proto.synoptic.feed.feed.FeedMessage.prototype.hasMessage = function() {
   return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional string messageMeta = 8;
+ * @return {string}
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.getMessagemeta = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.setMessagemeta = function(value) {
+  return jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.synoptic.feed.feed.FeedMessage} returns this
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.clearMessagemeta = function() {
+  return jspb.Message.setField(this, 8, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.synoptic.feed.feed.FeedMessage.prototype.hasMessagemeta = function() {
+  return jspb.Message.getField(this, 8) != null;
 };
 
 

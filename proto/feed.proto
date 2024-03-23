@@ -21,29 +21,32 @@ service IngressService {
 
 // The request message sent by scraper to the feed ingress endpoint.
 message FeedMessage {
+  // Auth token.
+  string token = 1;
+
   // Feed id. Usually, it is represented by source name and scraping purpose.
   // Examples: "sec.etf_approve", "delaware.new_company", "delaware.new_etf_company", "btcnodes.etfmatch"
-  string feed_id = 1;
+  string feedId = 2;
 
   // Used to deduplicate the same message within the scraper. Provide random uuid if your scraper is unique values only.
   // Examples: "blackrock_etf_approve", "1278637841", "2010-07-09T01:10:41:123121", "fcd07418-0804-4f8d-b664-058ef3637a8a"
-  string message_id = 2;
+  string messageId = 3;
 
   // Printable headline for the feed
   // Examples: "Blackrock just got ETF approval on sec.gov", "Harmony bridge is hacked"
-  string headline = 3;
+  string headline = 4;
 
   // The timestamp when the scraper observed the message. Note google.protobuf.Timestamp format.
-  google.protobuf.Timestamp timestamp_scraper = 4;
+  google.protobuf.Timestamp timestamp_scraper = 5;
 
   // If the scraper detects some particular event, provide its credibility 0-100. Optional.
-  optional int32 confidence = 5;
+  optional int32 confidence = 6;
 
   // JSON encoded string representing any data subscribers will have access to.
-  optional string data = 6;
+  optional string message = 7;
 
   // JSON encoded string representing any meta data subscribers will not have access to, but it will be stored.
-  optional string _meta = 7;
+  optional string messageMeta = 8;
 }
 
 // The response message notifies scraper on successful processing of messages. Scrapers can ignore the response.
